@@ -1,0 +1,1 @@
+<h1 style="text-align: center">Đăng Ký Thành Công</h1>
