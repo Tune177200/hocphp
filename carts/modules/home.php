@@ -1,7 +1,44 @@
 <?php 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+        // lấy productId
+        $addToCart = $_POST['add_to_cart'];
+        $productIdArr = array_keys($addToCart);
+        $productId = reset($productIdArr);
         
+
+        // Lấy quantity theo product Id
+        $quantity = $_POST['quantity'][$productId];
+
+        // xử lý thêm vào giỏ hàng
+
+        // $_SESSION['cart'][$productId] = $quantity;
+
+        // nếu sản phẩm chưa có trong giỏ hàng => Thêm mới, nếu đã có => Cập nhật lại số lượng
+
+        $cart = getSession('cart');
+        
+        if(!empty($cart[$productId])){
+            $cart[$productId] += $quantity;
+        }else{
+            $cart[$productId] = $quantity;
+        }
+
+        setSession('cart', $cart);
+
+        setSession('msg', 'Thêm vào giỏ hàng thành công. <a href="?module=cart">Xem giỏ hàng</a>');
+
+        reload();
+
     }
+
+    $msg = getFlashData('msg');
+
+    echo getMessage($msg);
+
+    echo '<pre>';
+    print_r(getSession('cart'));
+    echo '</pre>';
 ?>
 <h2>Danh sách sản phẩm</h2>
 <form action="" method="post">

@@ -1,5 +1,7 @@
 <?php 
+    session_start();
     require_once 'data.php';
+    require_once 'includes/functions.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
